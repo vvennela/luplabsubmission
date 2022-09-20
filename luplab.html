@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- My LupSeat submission-->
+<html lang="en">
+<!-- Some simple styling for the table-->
+<style>
+    table, th, td {
+        border: 1px solid black;
+        }
+</style>
+
+<head> 
+</head>
+<!-- To validate the inputs into the table I decided to use the reqired attribute, which requires the table to be nested inside a form-->
+<form>
+<body>
+<table id = "table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Level</th>
+         </tr>
+         <tr>
+			<div class = "inputCheck">
+            <td><input type = "text" name = "name" placeholder = "Enter your name here" id = "name" required> </td> <!-- I thought about restricting this to alphabets but decided that allowing any character is better as it accomodates more users -->
+            <div class = "errorCheck"></div>
+            </div>
+            <div class = "inputCheck">
+            <td><input type = "email" name = "email" placeholder = "Enter your email here"  required></td> <!-- Specifying type = "email" forces the user to only type an email-->
+            <div class = "errorCheck"></div>
+            </div>
+            <div class = "inputCheck">
+            <td><select name = "year" id = "year" required>
+            <option selected="selected" disabled="disabled" value="">Enter your Year</option> <!-- "Enter your year" acts as a placeholder and is unselectable after an initial click-->
+            <option value = "First">First Year</option>
+            <option value = "Second">Second Year</option>
+            <option value = "Third">Third Year</option>
+            <option value = "Fourth">Fourth Year</option>
+            </select> 
+            <div class = "errorCheck"></div>
+            </div>
+         </tr>
+    </thead>
+</table>
+<div class="container">
+  <div id="click">
+    <button id="add-row" type = "submit" >Add Row</button>
+    <button id="delete-row">Delete Row</button>
+  </div>
+</div>
+</form>
+</body>
+
+<script>
+// just some customary declarations
+let name = document.getElementById('name');
+let email = document.getElementById('email');
+let year = document.getElementById('year');
+let add = document.getElementById('add-row');
+let table = document.querySelector('#table');
+
+
+// Functions to add and remove rows as desired. Decided to use insertAdjacentHTML because parses the DOM faster than innerHTML and is more secure
+function addRow() {
+    // right here we need to then write down everything that we want added in the new row. Because we want it identical to the previous empty entries, we just copy paste the HTML for the first row entry.
+  let row = `<tr>
+			<div class = "inputCheck">
+            <td><input type = "text" name = "name" placeholder = "Enter your name here" id = "name" required> </td>
+            <div class = "errorCheck"></div>
+            </div>
+            <div class = "inputCheck">
+            <td><input type = "email" name = "email" placeholder = "Enter your email here" id = "email" required></td> 
+            <div class = "errorCheck"></div>
+            </div>
+            <div class = "inputCheck">
+            <td><select name = "year" id = "year" required>
+            <option selected="selected" disabled="disabled" value="">Enter your Year</option>
+            <option value = "First">First Year</option>
+            <option value = "Second">Second Year</option>
+            <option value = "Third">Third Year</option>
+            <option value = "Fourth">Fourth Year</option>
+            </select> 
+            <div class = "errorCheck"></div>
+            </div>
+         </tr>`;
+  table.insertAdjacentHTML('beforeend', row); 
+};
+
+function deleteRow(){
+	document.getElementById("table").deleteRow(-1); 
+    }
+
+document.querySelector('#add-row').addEventListener('click', addRow); // we utilize the addRow function and map it to the "#add-row" query
+document.querySelector('#delete-row').addEventListener('click', deleteRow); // same concept as the "add row" query selector
+
+
+
+</script>
